@@ -12,9 +12,12 @@ pygame.display.set_icon(icon) #sets the icon var as the icon for the game window
 playerIMG = pygame.image.load('player1.png') #create a var to be the image we want
 playerX = 370 #sets the x-axis cords
 playerY = 480 #sets the y-axis cords
+player_change = 0
 
-def player(): #create a function to be the player
-    screen.blit((playerIMG), (playerX, playerY)) #screen.blit draws the image on the screen, at the passed x,y cords. drawimage [screen.blit((image var), (x cords, y cords))]
+def player(x,y): #create a function to be the player
+    screen.blit((playerIMG), (x, y)) #screen.blit draws the image on the screen, at the passed x,y cords. drawimage [screen.blit((image var), (x cords, y cords))]
+
+
 
 """ infinte loop for run time """
 #the following creates a game loop for the quit function so we are able to close it, otherwise the loop will always be set to true and the game will never close
@@ -25,8 +28,22 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+        if event.type == pygame.KEYDOWN: #creates an even for the presseing of a key
+            print("Key stroke pressed")
+            if event.key == pygame.K_LEFT: #checks what key is pressed, if its the left arrow print the following
+                playerX == -0.9
+                print("left key pressed")
+            if event.key == pygame.K_RIGHT:
+                playerX == 0.9
+                print("right key pressed")
 
-    player() #call the player function, make sure it is under our screen.fill otherwise it will be behind it
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                playerX == 0.1
+                print("key released")
+
+    playerX += player_change
+    player(playerX, playerY) #call the player function, make sure it is under our screen.fill otherwise it will be behind it
 
 
 
